@@ -1,0 +1,20 @@
+[project]
+authors = [{ name = "Jakub Jezek", email = "jakubjezek001@gmail.com" }]
+name = "jeza-ynput-dev-workspace"
+version = "0.1.0"
+description = "My personal workspace for YNPUT development."
+readme = "README.md"
+requires-python = ">=3.9.19"
+dependencies = [
+    "ayon-python-api>=1.0.11",
+    "click>=8.1.7",
+    "python-dotenv>=1.0.1",
+]
+
+[project.scripts]
+git-clone-all-repos = "jeza_ynput_dev_workspace:git_clone_all_repos"
+upload-to-addon-folder = "jeza_ynput_dev_workspace:upload_to_addon_folder"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

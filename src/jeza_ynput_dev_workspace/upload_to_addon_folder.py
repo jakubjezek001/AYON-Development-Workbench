@@ -20,27 +20,17 @@ Notes:
 
 """
 
-import argparse
 import logging
 import os
 import sys
 from pathlib import Path
 
-try:
-    import ayon_api
-    from ayon_api import get_server_api_connection
+import ayon_api
+import click
+from ayon_api import get_server_api_connection
+from dotenv import load_dotenv
 
-    has_ayon_api = True
-except ModuleNotFoundError:
-    has_ayon_api = False
-
-try:
-    from dotenv import load_dotenv
-
-    load_dotenv()
-except ModuleNotFoundError:
-    if has_ayon_api:
-        logging.warning("dotenv not installed, skipping loading .env file")
+load_dotenv()
 
 scripts_dir = Path(__file__).resolve().parent
 workspace_dir = Path(__file__).resolve().parent.parent.parent
@@ -49,35 +39,28 @@ docker_addons_dir = workspace_dir / "ayon-docker" / "addons"
 
 python_exe = sys.executable
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--debug",
-        dest="debug",
-        action="store_true",
-        help="Debug log messages."
-    )
-    parser.add_argument(
-        "-a",
-        "--addon",
-        dest="addons",
-        action="append",
-        help="Addon repo name to upload.",
-        required=True,
-    )
 
-    args = parser.parse_args(sys.argv[1:])
-
+@click.command()
+@click.option("--debug", is_flag=True, help="Debug log messages.")
+@click.option(
+    "-a",
+    "--addon",
+    "addons",
+    multiple=True,
+    required=True,
+    help="Addon repo name to upload.",
+)
+def upload_to_addon_folder(debug, addons):
     # Set Log Level and create log object
     level = logging.INFO
-    if args.debug:
+    if debug:
         level = logging.DEBUG
     logging.basicConfig(level=level)
     log: logging.Logger = logging.getLogger("upload_package")
 
     repo_folders = os.listdir(workspace_dir.as_posix())
     processed_addons = []
-    for addon in args.addons:
+    for addon in addons:
         if addon not in repo_folders:
             continue
         addon_repo_dir = workspace_dir / addon
