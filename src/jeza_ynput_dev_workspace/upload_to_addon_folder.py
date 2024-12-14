@@ -43,14 +43,13 @@ python_exe = sys.executable
 @click.command()
 @click.option("--debug", is_flag=True, help="Debug log messages.")
 @click.option(
-    "-a",
-    "--addon",
-    "addons",
-    multiple=True,
+    "-f",
+    "--file-path",
+    "file_path",
     required=True,
-    help="Addon repo name to upload.",
+    help="Relative file path to workspace root.",
 )
-def upload_to_addon_folder(debug, addons):
+def upload_to_addon_folder(debug, file_path):
     # Set Log Level and create log object
     level = logging.INFO
     if debug:
@@ -59,6 +58,18 @@ def upload_to_addon_folder(debug, addons):
     log: logging.Logger = logging.getLogger("upload_package")
 
     repo_folders = os.listdir(workspace_dir.as_posix())
+
+    # get first folder from file path and check if ayon-* is in name
+    addons = []
+    file_path = Path(file_path)
+    # split path to get first folder
+    first_folder = file_path.parts[0]
+    if first_folder.startswith("ayon-"):
+        addons.append(first_folder)
+    else:
+        log.error("No valid addon path found")
+        sys.exit(1)
+
     processed_addons = []
     for addon in addons:
         if addon not in repo_folders:
