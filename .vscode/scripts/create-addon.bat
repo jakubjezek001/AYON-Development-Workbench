@@ -7,5 +7,4 @@
 call python %1/%2/create_package.py
 
 @REM Upload addons
-cd /d %1/.vscode/scripts/
-call poetry run python upload-addon.py --addon %1/%2
+call .\.poetry\bin\poetry.exe run python upload-addon.py --addon %1/%2

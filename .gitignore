@@ -1,2 +1,14 @@
 __pycache__
 poetry.lock
+.python-version
+
+.vscode/scripts/.env
+
+.poetry
+
+ayon-*
+*-addon
+
+_CLIENTS_*
+
+TESTING_*

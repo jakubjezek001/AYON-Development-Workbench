@@ -26,5 +26,4 @@ for %%i in (
 )
 
 @REM Upload addons
-cd /d %1/.vscode/scripts/
-call poetry run python upload-addon.py --package-dir %2
+call python %1/.vscode/scripts/upload-addon.py --package-dir %2

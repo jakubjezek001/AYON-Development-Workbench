@@ -1,10 +1,15 @@
 [tool.poetry]
-name = "upload-addon"
-version = "0.0.1"
-description = "dependencies for upload-addon.py"
-authors = ["Mustafa Jafar <https://github.com/MustafaJafar>"]
+name = "jeza-ynput-dev"
+version = "0.1.0"
+description = ""
+authors = ["Jakub Jezek <jakubjezek001@gmail.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-python-dotenv = ">= 1.0.0"
-ayon-python-api = ">= 1.0.0"
+python = "^3.11"
+ayon-python-api = "^1.0.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

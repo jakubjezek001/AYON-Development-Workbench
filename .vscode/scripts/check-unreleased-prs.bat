@@ -2,7 +2,6 @@
 @REM %1 -> Current Directory
 
 @REM This is hardcoded.
-cd /d %1
 for %%i in (
     ayon-applications,
     ayon-core,
@@ -24,5 +23,6 @@ for %%i in (
     ayon-ftrack,
     ayon-shotgrid
 ) do (
-    if exist %1/%%i (echo %1/%%i exists) else (git clone https://github.com/ynput/%%i.git)
+    echo Checking unreleased PRs for ynput/%%i
+    gh pr list --repo ynput/%%i --state merged --search "merged:>=$(gh release view --json publishedAt --jq '.publishedAt' --repo=ynput/%%i)"
 )

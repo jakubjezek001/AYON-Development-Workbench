@@ -1,6 +1,6 @@
 {
     "terminal.integrated.env.windows": {
-        "PYTHONPATH": "${cwd}/ayon-core/client;${env:PYTHONPATH}"
+        "PYTHONPATH": "${cwd}/ayon-core/client;${env:PYTHONPATH}",
     },
     "python.analysis.extraPaths": [
         // AYON Server Backend
@@ -23,8 +23,12 @@
         "./ayon-kitsu/client",
         "./ayon-ftrack/client",
         "./ayon-shotgrid/client",
-        
-        // DCC specific code.
-        "C:/Program Files/Side Effects Software/Houdini 19.5.805/houdini/python3.9libs",
+
+        "./ayon-circuit/client",
+        "./ayon-circuit/client/ayon_circuit/vendor/LabLib",
+        "./ayon-docker/backend",
+
+        "C:/Users/jakub/AppData/Local/Ynput/AYON/dependency_packages/ayon_2408091537_windows.zip/dependencies"
+
     ],
 }
